@@ -1,0 +1,169 @@
+<!-- CONTENT -->
+<section id="content">
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Technicians</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Technicians</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="#">List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-data">
+      <div class="list">
+        <!-- table header  -->
+        <div class="head">
+          <h4>Filter</h4>
+          <button (click)="handleGetPageAllUsers()" style="border: none;"><span class="filter">All User <i
+                class="bi bi-people-fill"></i></span></button>
+          <button style="border: none;" data-bs-toggle="modal" data-bs-target="#addUser"><span class="filter">Add User
+              <i class="bi bi-person-fill-add"></i></span></button>
+          <form action="#">
+            <div class="form-input">
+              <input type="search" placeholder="Search...">
+              <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+          </form>
+        </div>
+        <!-- table header  -->
+        <ng-template #errors>
+          <div class="text-danger">{{errorMessage}}</div>
+        </ng-template>
+        <table *ngIf="users ; else errors">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>User</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Create At</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of users ; let i=index">
+              <td (click)="handleGoToUserDetails(u)">
+                <ng-container *ngIf="u.imageUser!==null; else noImage">
+                  <button style="border: none;"><img
+                      [src]="'http://localhost:8081/image/download/' + u.imageUser.name"></button>
+                </ng-container>
+                <ng-template #noImage>
+                  <button style="border: none;"><img src="./assets/images/profile.png"></button>
+                </ng-template>
+              </td>
+
+              <td>{{u.firstName}} {{u.lastName}}</td>
+              <td>{{u.email}}</td>
+              <td>
+                <span>{{u.password}}</span>
+                <button style="border: none;"><span class="status completed"><i
+                      class="bi bi-eye-slash-fill"></i></span></button>
+              </td>
+              <td>{{u.firstName}}</td>
+              <td><button (click)="handleDeleteUser(u.id)" style="border: none;"><span class="status delete"> <i
+                      class="bi bi-person-x"></i></span></button>
+              </td>
+              <td><button style="border: none;" data-bs-toggle="modal" data-bs-target="#editUser"
+                  (click)="handlOpenEditUser(i)"><span class="status completed"> <i
+                      class="bi bi-pencil"></i></span></button></td>
+            </tr>
+
+          </tbody>
+        </table>
+        <!-- table footer  -->
+        <div class="footer">
+          <button style="border: none;" (click)="handlegoToNextPage(i)"
+            *ngFor="let item of [].constructor(this.totalPages);let i = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="i==currentPage?'page-active':'page'" class="">{{i+1}}</span></button>
+
+        </div>
+        <!-- table footer  -->
+      </div>
+
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+
+<!-- Add Dialog user  -->
+<div class="modal fade" id="addUser" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Add User</h2>
+      <form [formGroup]="addUser" (ngSubmit)="handleCreateUser()">
+        <label for="name">First Name:</label>
+        <input type="text" formControlName="firstName">
+        <small *ngIf="addUser.controls['firstName'].errors &&addUser.controls['firstName'].touched "
+          class="text-danger">
+          FirstName is required
+        </small>
+        <label for="name">Last Name:</label>
+        <input type="text" formControlName="lastName">
+        <small *ngIf="addUser.controls['lastName'].errors &&addUser.controls['lastName'].touched " class="text-danger">
+          LastName is required
+        </small>
+        <label for="email">Email:</label>
+        <input type="email" formControlName="email">
+        <small *ngIf="addUser.controls['email'].errors &&addUser.controls['email'].touched " class="text-danger">
+          Email is required
+        </small>
+        <label for="password">Password:</label>
+        <input type="password" formControlName="password">
+        <small *ngIf="addUser.controls['password'].errors &&addUser.controls['password'].touched " class="text-danger">
+          Password is required
+        </small>
+        <button [disabled]="addUser.invalid" type="submit" class="submit">Add User</button>
+      </form>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Add Dialog user  -->
+
+<!-- Edit Dialog user  -->
+<div class="modal fade" id="editUser" aria-hidden="true" aria-labelledby="editToggleLabel" tabindex="">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Edit User</h2>
+      <form [formGroup]="editUser" (ngSubmit)="handleEditUser()">
+        <label for="name">First Name:</label>
+        <input type="text" formControlName="firstName">
+        <small *ngIf="editUser.controls['firstName'].errors &&editUser.controls['firstName'].touched "
+          class="text-danger">
+          FirstName is required
+        </small>
+        <label for="name">Last Name:</label>
+        <input type="text" formControlName="lastName">
+        <small *ngIf="editUser.controls['lastName'].errors &&editUser.controls['lastName'].touched "
+          class="text-danger">
+          LastName is required
+        </small>
+        <label for="email">Email:</label>
+        <input type="email" formControlName="email">
+        <small *ngIf="editUser.controls['email'].errors &&editUser.controls['email'].touched " class="text-danger">
+          Email is required
+        </small>
+        <label for="password">Password:</label>
+        <input type="password" formControlName="password">
+        <small *ngIf="editUser.controls['password'].errors &&editUser.controls['password'].touched "
+          class="text-danger">
+          Password is required
+        </small>
+        <button type="submit" class="submit">Add User</button>
+      </form>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Edit Dialog user  -->

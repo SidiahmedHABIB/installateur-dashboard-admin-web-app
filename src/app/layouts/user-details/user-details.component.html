@@ -1,0 +1,109 @@
+<!-- CONTENT -->
+<section id="content">
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Technicians</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a>Technician</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="/admin/users">List</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active">Details</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="table-data">
+      <div class="list">
+        <!-- table header  -->
+        <div class="head">
+          <h4>Technician Interventions</h4>
+
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Company</th>
+              <th>Status</th>
+              <th>Appointamt</th>
+              <th>Create At</th>
+              <th>Comment</th>
+              <th>Plan</th>
+
+            </tr>
+          </thead>
+          <tbody *ngIf="userInter ; else errors">
+            <tr *ngFor="let u of userInter ; let i=index">
+              <td>
+                <ng-container *ngIf="u.company.imageCompany!==null; else noImage">
+                  <img [src]="'http://localhost:8081/image/download/' + u.company.imageCompany.name">
+                </ng-container>
+                <ng-template #noImage>
+                  <img src="./assets/images/profile.png">
+                </ng-template>
+              </td>
+              <td>{{u.company.name}} </td>
+              <td>
+                <span>{{u.status}}</span>
+              </td>
+              <td>{{u.appointmentAt}}</td>
+              <td>{{u.creatAt}}</td>
+              <td> <button style="border: none;" data-bs-toggle="modal" data-bs-target="#ShowComment"
+                  (click)="handlOpenShowInterComment(i)"><span class="status completed">Show</span></button></td>
+              <td>
+                <ng-container *ngIf="u.status!=='PLANNED'; else planned">
+                  <button style="border: none;" (click)="handlEditPlanedInder(i)"><span
+                      class="status pending">Plan</span></button>
+                </ng-container>
+                <ng-template #planned>
+                  <button style="border: none;"><span class="status completed">Planned</span></button>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+          <!-- error  -->
+          <ng-template #errors>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="text-danger">do n't have interventions</div>
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </table>
+        <!-- table footer  -->
+        <div class="footer">
+          <button style="border: none;" (click)="handlegoToNextPage(i)"
+            *ngFor="let item of [].constructor(this.totalPages);let i = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="i==currentPage?'page-active':'page'" class="">{{i+1}}</span></button>
+
+        </div>
+        <!-- table footer  -->
+      </div>
+
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+<!-- Add Dialog user  -->
+<div class="modal fade" id="ShowComment" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Comment</h2>
+      <p>{{showComment}}</p>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Add Dialog user  -->

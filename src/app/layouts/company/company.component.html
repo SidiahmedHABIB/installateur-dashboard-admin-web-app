@@ -1,0 +1,81 @@
+<!-- CONTENT -->
+<section id="content">
+
+
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Companies</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Companies</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="#">List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-data">
+      <div class="list">
+        <!-- table header  -->
+        <div class="head">
+          <h4>All Companies</h4>
+          <button style="border: none;" data-bs-toggle="modal" data-bs-target="#addCompany"><span class="filter">Add
+              Company
+              <i class="bi bi-person-fill-add"></i></span></button>
+        </div>
+        <!-- table header  -->
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Location</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of companies ; let i=index">
+              <td (click)="handleGoToCompanyDetails(c)">
+                <ng-container *ngIf="c.imageCompany!==null; else noImage">
+                  <button style="border: none;"><img
+                      [src]="'http://localhost:8081/image/download/' + c.imageCompany.name"></button>
+                </ng-container>
+                <ng-template #noImage>
+                  <button style="border: none;"><img src="./assets/images/profile.png"></button>
+                </ng-template>
+              </td>
+              <td>{{c.name}} </td>
+              <td>{{c.email}}</td>
+              <td>{{c.phone}}</td>
+              <td>{{c.location}}</td>
+              <td><button style="border: none;"><span class="status delete"> <i
+                      class="bi bi-person-x"></i></span></button>
+              </td>
+              <td><button style="border: none;" data-bs-toggle="modal" data-bs-target="#editUser"><span
+                    class="status completed"> <i class="bi bi-pencil"></i></span></button></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- table footer  -->
+        <div class="footer">
+          <button style="border: none;" (click)="handlegoToNextPage(i)"
+            *ngFor="let item of [].constructor(this.totalPages);let i = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="i==currentPage?'page-active':'page'" class="">{{i+1}}</span></button>
+
+        </div>
+        <!-- table footer  -->
+      </div>
+
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
