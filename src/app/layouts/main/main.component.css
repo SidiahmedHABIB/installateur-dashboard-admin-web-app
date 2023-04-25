@@ -89,93 +89,6 @@ body {
   margin-right: auto;
 }
 
-#content nav form .form-input {
-  display: flex;
-  align-items: center;
-  height: 36px;
-}
-
-#content nav form .form-input input {
-  flex-grow: 1;
-  padding: 0 16px;
-  height: 100%;
-  border: none;
-  background: var(--grey);
-  border-radius: 36px 0 0 36px;
-  outline: none;
-  width: 100%;
-  color: var(--dark);
-}
-
-#content nav form .form-input button {
-  width: 36px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--blue);
-  color: var(--light);
-  font-size: 18px;
-  border: none;
-  outline: none;
-  border-radius: 0 36px 36px 0;
-  cursor: pointer;
-}
-
-#content nav .notification {
-  font-size: 20px;
-  position: relative;
-}
-
-#content nav .notification .num {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid var(--light);
-  background: var(--red);
-  color: var(--light);
-  font-weight: 700;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#content nav .profile img {
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-#content nav .switch-mode {
-  display: block;
-  min-width: 50px;
-  height: 25px;
-  border-radius: 25px;
-  background: var(--grey);
-  cursor: pointer;
-  position: relative;
-}
-
-#content nav .switch-mode::before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  bottom: 2px;
-  width: calc(25px - 4px);
-  background: var(--blue);
-  border-radius: 50%;
-  transition: all .3s ease;
-}
-
-#content nav #switch-mode:checked+.switch-mode::before {
-  left: calc(100% - (25px - 4px) - 2px);
-}
 
 #content nav .btn-download {
   height: 36px;
@@ -232,6 +145,7 @@ body {
   background: var(--light);
   z-index: 500;
   padding-bottom: 20px;
+  padding-left: 50px;
   box-sizing: content-box;
 }
 
@@ -243,13 +157,13 @@ body {
 
 #sidebar .side-menu {
   width: 100%;
-  margin-top: 48px;
+  margin-top: 0px;
 }
 
 #sidebar .side-menu li {
   height: 48px;
   background: transparent;
-  margin-left: 6px;
+  margin-left: 40px;
   border-radius: 48px 0 0 48px;
   padding: 4px;
 }

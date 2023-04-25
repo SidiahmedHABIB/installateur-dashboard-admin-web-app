@@ -16,4 +16,7 @@ export class RemoteDataService {
   public postData(url: String, body: any): Observable<any> {
     return this.httpClient.post<any>(this.BASEURL + url, body);
   }
+  public putData(url: String, body: any): Observable<any> {
+    return this.httpClient.put<any>(this.BASEURL + url, body);
+  }
 }

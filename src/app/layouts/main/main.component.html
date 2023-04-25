@@ -4,10 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!-- Boxicons -->
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-
   <title>Installateur</title>
 </head>
 
@@ -16,19 +14,13 @@
   <!-- NAVBAR -->
   <section id="content">
     <nav>
-      <i class='bx bx-menu'></i>
-      <a href="#" class="nav-link">Categories</a>
       <form action="#">
         <div class="form-input">
-          <input type="search" placeholder="Search...">
-          <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
         </div>
       </form>
-      <input type="checkbox" id="switch-mode" hidden>
-      <label for="switch-mode" class="switch-mode"></label>
       <a href="#" class="btn-download">
-        <i class='bx bxs-log-out-circle'></i>
-        <span class="text">Sing Out</span>
+        <span class="text">Logout</span>
+        <i class="bi bi-box-arrow-right"></i>
       </a>
     </nav>
   </section>
@@ -37,7 +29,6 @@
   <!-- SIDEBAR -->
   <section id="sidebar">
     <a href="#" class="brand">
-      <i class='bx bxs-smile'></i>
       <span class="text">Installateur</span>
     </a>
     <ul class="side-menu top">
@@ -60,32 +51,13 @@
         </a>
       </li>
       <li>
-        <a href="/admin/interventions">
-          <i class='bx bxs-message-dots'></i>
-          <span class="text">Interventions</span>
-        </a>
-      </li>
-      <li>
         <a href="/admin/admins">
           <i class='bx bxs-group'></i>
           <span class="text">Admins</span>
         </a>
       </li>
     </ul>
-    <ul class="side-menu">
-      <li>
-        <a href="#">
-          <i class='bx bxs-cog'></i>
-          <span class="text">Settings</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="logout">
-          <i class='bx bxs-log-out-circle'></i>
-          <span class="text">Logout</span>
-        </a>
-      </li>
-    </ul>
+
   </section>
   <!-- SIDEBAR -->
 
@@ -94,8 +66,6 @@
   <router-outlet></router-outlet>
 
   <!-- CONTENT -->
-
-  <script src="script.js"></script>
 
 </body>
 

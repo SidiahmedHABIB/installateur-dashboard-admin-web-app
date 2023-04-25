@@ -9,11 +9,11 @@
         <h1>Companies</h1>
         <ul class="breadcrumb">
           <li>
-            <a href="#">Companies</a>
+            <a>Companies</a>
           </li>
           <li><i class='bx bx-chevron-right'></i></li>
           <li>
-            <a class="active" href="#">List</a>
+            <a class="active">List</a>
           </li>
         </ul>
       </div>
@@ -24,9 +24,8 @@
         <!-- table header  -->
         <div class="head">
           <h4>All Companies</h4>
-          <button style="border: none;" data-bs-toggle="modal" data-bs-target="#editCompany"><span class="filter">Add
-              Company
-              <i class="bi bi-person-fill-add"></i></span></button>
+          <button style="border: none;" data-bs-toggle="modal" data-bs-target="#addCompany"><span class="filter">Add
+              Company</span></button>
         </div>
         <!-- table header  -->
         <table>
@@ -56,8 +55,8 @@
               <td>{{c.email}}</td>
               <td>{{c.phone}}</td>
               <td>{{c.location}}</td>
-              <td><button style="border: none;"><span class="status delete"> <i
-                      class="bi bi-person-x"></i></span></button>
+              <td><button style="border: none;" (click)="handleDeleteCompany(c.id)"><span class="status delete"> <i
+                      class="bi bi-trash-fill"></i></span></button>
               </td>
               <td><button style="border: none;" data-bs-toggle="modal" data-bs-target="#editCompany"
                   (click)="handlOpenEditCompany(i)"><span class="status completed"> <i

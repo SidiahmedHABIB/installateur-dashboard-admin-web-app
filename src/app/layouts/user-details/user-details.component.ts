@@ -23,7 +23,7 @@ export class UserDetailsComponent implements OnInit {
   intervention!: InterModel;
 
 
-  constructor(private userService: UsersService, private route: ActivatedRoute, private interService: InterService) {
+  constructor(private route: ActivatedRoute, private interService: InterService) {
     this.userId = this.route.snapshot.params['id'];
   }
 
@@ -31,7 +31,7 @@ export class UserDetailsComponent implements OnInit {
     this.handleGetPageUserInters();
   }
   handleGetPageUserInters() {
-    this.interService.getPageHaveUserInters(this.userId, this.currentPage, this.pageSize).subscribe({
+    this.interService.getPageHaveIntersByUser(this.userId, this.currentPage, this.pageSize).subscribe({
       next: (data: PageInterModel) => {
         this.userInter = data.interventions;
         this.totalPages = data.totalPages

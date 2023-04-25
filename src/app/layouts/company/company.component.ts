@@ -83,7 +83,7 @@ export class CompanyComponent implements OnInit {
     console.log(this.addCompany.value);
     this.companyService.addCompany(this.addCompanyValue).subscribe({
       next: (data: CompanyModel) => {
-        alert("add successfully");
+        alert("add Company successfully");
         console.log(data);
         this.handleGetPageAllCompanies();
         this.addCompany.reset()
@@ -127,5 +127,23 @@ export class CompanyComponent implements OnInit {
     reader.onload = () => {
       this.base64_1 = reader.result;
     }
+  }
+  handleDeleteCompany(companyId: number) {
+    let conf = confirm("Are you sure ?");
+    if (conf == false) return;
+    this.companyService.deleteCompany(companyId).subscribe({
+      next: (data: boolean) => {
+        if (data === true) {
+          alert("Deleted successfully");
+          this.handleGetPageAllCompanies();
+        }
+        else {
+          this.handleGetPageAllCompanies();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    });
   }
 }

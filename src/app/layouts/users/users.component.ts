@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   addUser!: FormGroup;
   editUser!: FormGroup;
   currentPage: number = 0;
-  pageSize: number = 2;
+  pageSize: number = 4;
   totalPages: number = 0;
   errorMessage: any = "";
   currentAction: string = "all";
@@ -89,6 +89,7 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
   handleGetPageAllUsers() {
     this.userService.getPageUsers(this.currentPage, this.pageSize).subscribe({
       next: (data: PageUsersModel) => {
@@ -103,6 +104,7 @@ export class UsersComponent implements OnInit {
       }
     });
   }
+
 
   handleDeleteUser(uId: number) {
     let conf = confirm("Are u sure ?");

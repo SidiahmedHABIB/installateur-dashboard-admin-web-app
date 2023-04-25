@@ -21,17 +21,9 @@
       <div class="list">
         <!-- table header  -->
         <div class="head">
-          <h4>Filter</h4>
-          <button (click)="handleGetPageAllUsers()" style="border: none;"><span class="filter">All User <i
-                class="bi bi-people-fill"></i></span></button>
+          <h4>Users</h4>
           <button style="border: none;" data-bs-toggle="modal" data-bs-target="#addUser"><span class="filter">Add User
               <i class="bi bi-person-fill-add"></i></span></button>
-          <form action="#">
-            <div class="form-input">
-              <input type="search" placeholder="Search...">
-              <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
-            </div>
-          </form>
         </div>
         <!-- table header  -->
         <ng-template #errors>

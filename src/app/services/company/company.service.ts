@@ -35,4 +35,22 @@ export class CompanyService {
       })
     );
   }
+
+  public deleteCompany(id: number): Observable<boolean> {
+    const url = '/company/delete/' + id;
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  public getCompanyById(id: number): Observable<CompanyModel> {
+    const url = '/company/id/' + id;
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
 }

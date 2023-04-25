@@ -7,3 +7,7 @@ export interface AdminModel {
   creatAt: Date;
   upadateAt: Date;
 }
+export interface PageAdminModel {
+  admins: AdminModel[];
+  totalPages: number;
+}

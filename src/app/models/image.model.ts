@@ -6,3 +6,7 @@ export interface ImageModel {
   creatAt: Date;
   upadateAt: Date;
 }
+export interface PageImageModel {
+  images: ImageModel[];
+  totalPages: number;
+}
