@@ -1,7 +1,5 @@
 <!-- CONTENT -->
 <section id="content">
-
-
   <!-- MAIN -->
   <main>
     <div class="head-title">
@@ -24,6 +22,17 @@
     </div>
     <!-- box Table -->
     <div class="table-data">
+      <!-- error  -->
+      <ng-template #boxErrors>
+        <tbody>
+          <tr>
+            <td>
+              <div class="text-danger">do n't have Boxes</div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+      <!-- error  -->
       <div class="list">
         <!-- table header  -->
         <div class="head">
@@ -46,7 +55,8 @@
               <th>Edit</th>
             </tr>
           </thead>
-          <tbody>
+
+          <tbody *ngIf="boxes ; else boxErrors">
             <tr *ngFor="let b of boxes ; let i=index">
               <td>
                 <ng-container *ngIf="b.status==='INSTALLED'; else noImage">
@@ -94,6 +104,17 @@
     <!-- box Table -->
     <!-- Intervention Table -->
     <div class="table-data">
+      <!-- error  -->
+      <ng-template #interErrors>
+        <tbody>
+          <tr>
+            <td>
+              <div class="text-danger">do n't have Boxes</div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+      <!-- error  -->
       <div class="list">
         <!-- table header  -->
         <div class="head">
@@ -114,7 +135,8 @@
               <th>Edit</th>
             </tr>
           </thead>
-          <tbody>
+
+          <tbody *ngIf="boxes ; else interErrors">
             <tr *ngFor="let cI of companyInters ; let i=index">
               <td>
                 <ng-container *ngIf="cI.status==='PLANNED'; else noPlanned">
@@ -143,10 +165,10 @@
         </table>
         <!-- table footer  -->
         <div class="footer">
-          <button style="border: none;" (click)="handlegoToNextPageInters(i)"
-            *ngFor="let item of [].constructor(this.totalPagesInter);let i = index" data-bs-toggle=""
-            data-bs-target="#"><span [ngClass]="i==currentPageInter?'page-active':'page'"
-              class="">{{i+1}}</span></button>
+          <button style="border: none;" (click)="handlegoToNextPageInters(ii)"
+            *ngFor="let item of [].constructor(this.totalPagesInter);let ii = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="ii==currentPageInter?'page-active':'page'"
+              class="">{{ii+1}}</span></button>
         </div>
         <!-- table footer  -->
       </div>
@@ -158,8 +180,6 @@
   <!-- MAIN -->
 </section>
 <!-- CONTENT -->
-
-
 <!-- Add Dialog Box  -->
 <div class="modal fade" id="addBox" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">

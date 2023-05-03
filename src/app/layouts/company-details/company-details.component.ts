@@ -219,7 +219,6 @@ export class CompanyDetailsComponent implements OnInit {
       reportBox: this.fb.control(this.editBoxValue.reportBox),
     });
   }
-
   handleCreateBox() {
     this.handleGetCompanyById();
     this.addBoxValue = this.addBox.value;
@@ -236,13 +235,12 @@ export class CompanyDetailsComponent implements OnInit {
       }
     });
   }
-
   handleGetPageAllBoxesByCompany() {
     this.boxService.getPageAllBoxesByCompany(this.companyId, this.currentPageBox, this.pageSize).subscribe({
       next: (data: PageBoxModel) => {
         this.boxes = data.boxes;
         this.totalPagesBox = data.totalPages
-        console.log(this.totalPagesBox)
+        console.log("total Box Pages" + this.totalPagesBox)
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message)
