@@ -22,117 +22,89 @@
 
     <ul class="box-info">
       <li>
-        <i class='bx bxs-calendar-check'></i>
+        <i class="bi bi-box-seam-fill"></i>
         <span class="text">
-          <h3>1020</h3>
-          <p>New Order</p>
+          <h3>{{totalBoxes}}</h3>
+          <p>Boxes</p>
+        </span>
+      </li>
+      <li>
+        <i class="bi bi-buildings-fill"></i>
+        <span class="text">
+          <h3>{{totalCompanies}}</h3>
+          <p>Companies</p>
         </span>
       </li>
       <li>
         <i class='bx bxs-group'></i>
         <span class="text">
-          <h3>2834</h3>
-          <p>Visitors</p>
-        </span>
-      </li>
-      <li>
-        <i class='bx bxs-dollar-circle'></i>
-        <span class="text">
-          <h3>$2543</h3>
-          <p>Total Sales</p>
+          <h3>{{totalTechnicians}}</h3>
+          <p>Technicians</p>
         </span>
       </li>
     </ul>
 
 
     <div class="table-data">
-      <div class="order">
+      <div class="list">
+        <!-- table header  -->
         <div class="head">
-          <h3>Recent Orders</h3>
-          <i class='bx bx-search'></i>
-          <i class='bx bx-filter'></i>
+          <h4>Interventions</h4>
+
         </div>
         <table>
           <thead>
             <tr>
-              <th>User</th>
-              <th>Date Order</th>
+              <th>Image</th>
+              <th>Technician</th>
+              <th>Company</th>
               <th>Status</th>
+              <th>Appointment</th>
+              <th>Create At</th>
+
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <img src="img/people.png">
-                <p>John Doe</p>
+          <tbody *ngIf="intervations ; else errors">
+            <tr *ngFor="let u of intervations ; let i=index">
+              <td (click)="handleGoToUserDetails(u.user)">
+                <ng-container *ngIf="u.user.imageUser!==null; else noImage">
+                  <img [src]="'http://localhost:8081/image/download/' + u.user.imageUser.name">
+                </ng-container>
+                <ng-template #noImage>
+                  <img src="./assets/images/profile.png">
+                </ng-template>
               </td>
-              <td>01-10-2021</td>
-              <td><span class="status completed">Completed</span></td>
-            </tr>
-            <tr>
+              <td>{{u.user.firstName}} {{u.user.lastName}} </td>
+              <td>{{u.company.name}} </td>
               <td>
-                <img src="img/people.png">
-                <p>John Doe</p>
+                <span>{{u.status}}</span>
               </td>
-              <td>01-10-2021</td>
-              <td><span class="status pending">Pending</span></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="img/people.png">
-                <p>John Doe</p>
-              </td>
-              <td>01-10-2021</td>
-              <td><span class="status process">Process</span></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="img/people.png">
-                <p>John Doe</p>
-              </td>
-              <td>01-10-2021</td>
-              <td><span class="status pending">Pending</span></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="img/people.png">
-                <p>John Doe</p>
-              </td>
-              <td>01-10-2021</td>
-              <td><span class="status completed">Completed</span></td>
+              <td>{{u.appointmentAt}}</td>
+              <td>{{u.creatAt}}</td>
+
             </tr>
           </tbody>
+          <!-- error  -->
+          <ng-template #errors>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="text-danger">do n't have interventions</div>
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
         </table>
-      </div>
-      <div class="todo">
-        <div class="head">
-          <h3>Todos</h3>
-          <i class='bx bx-plus'></i>
-          <i class='bx bx-filter'></i>
+        <!-- table footer  -->
+        <div class="footer">
+          <button style="border: none;" (click)="handlegoToNextPage(i)"
+            *ngFor="let item of [].constructor(this.totalPages);let i = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="i==currentPage?'page-active':'page'" class="">{{i+1}}</span></button>
+
         </div>
-        <ul class="todo-list">
-          <li class="completed">
-            <p>Todo List</p>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="completed">
-            <p>Todo List</p>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="not-completed">
-            <p>Todo List</p>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="completed">
-            <p>Todo List</p>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-          <li class="not-completed">
-            <p>Todo List</p>
-            <i class='bx bx-dots-vertical-rounded'></i>
-          </li>
-        </ul>
+        <!-- table footer  -->
       </div>
+
     </div>
   </main>
   <!-- MAIN -->

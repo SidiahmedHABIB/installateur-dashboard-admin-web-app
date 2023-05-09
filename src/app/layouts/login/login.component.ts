@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminModel } from 'src/app/models/admin.model';
+import { LoginResponse } from 'src/app/models/login.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -33,11 +34,11 @@ export class LoginComponent implements OnInit {
     this.Admin = this.AdminFromGroup.value;
     console.log(this.AdminFromGroup.value)
     this.authService.login(this.Admin.email, this.Admin.password).subscribe({
-      next: (admin: AdminModel) => {
-        this.theAdmin = admin;
-        if (!this.theAdmin) {
+      next: (data: LoginResponse) => {
+        if (data.status == "false") {
           return alert("User not found");
         }
+        this.theAdmin = data.admin;
         console.log(this.theAdmin)
         this.authService.authenticateAdmin(this.theAdmin).subscribe({
           next: (data: boolean) => {

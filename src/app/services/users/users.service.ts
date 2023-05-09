@@ -46,5 +46,13 @@ export class UsersService {
       })
     );
   }
+  public getAllUsers(): Observable<UserModel[]> {
+    const url = '/users/allUsers';
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 
 }

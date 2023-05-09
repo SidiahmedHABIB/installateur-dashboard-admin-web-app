@@ -9,6 +9,15 @@ import { CompanyModel, PageCompanyModel } from 'src/app/models/company.model';
 export class CompanyService {
 
   constructor(private remoteDataService: RemoteDataService) { }
+
+  public getAllCompanies(): Observable<CompanyModel[]> {
+    const url = '/company/all';
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   public updateCompany(companyModel: CompanyModel): Observable<CompanyModel> {
     const url = '/company/update/';
     return this.remoteDataService.postData(url, companyModel).pipe(

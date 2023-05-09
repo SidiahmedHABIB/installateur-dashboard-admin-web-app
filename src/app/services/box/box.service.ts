@@ -10,6 +10,15 @@ import { PageImageModel } from 'src/app/models/image.model';
 export class BoxService {
 
   constructor(private remoteDataService: RemoteDataService) { }
+  public getAllBoxes(): Observable<BoxModel[]> {
+    const url = '/box/all';
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
 
   public getPageAllBoxesByCompany(companyId: number, page: number, size: number): Observable<PageBoxModel> {
     const url = '/box/pageAll/' + companyId + '&' + page + '&' + size;

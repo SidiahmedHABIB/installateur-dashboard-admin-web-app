@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, from, map, of } from 'rxjs';
 import { AdminModel } from 'src/app/models/admin.model';
 import { RemoteDataService } from '../data/remote-data.service';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from 'src/app/models/user.model';
+import { LoginRequest, LoginResponse } from 'src/app/models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +13,23 @@ export class AuthService {
   private LOGIN_URL: string = "/admin/login/";
 
 
-  private BASEURL: string = "http://192.168.1.15:8081/"
 
   authenticatedAdmin: AdminModel | undefined;
   constructor(private httpClient: HttpClient, private remoteDataService: RemoteDataService) { }
 
   public getAllAdmins(): Observable<AdminModel[]> {
-    return this.httpClient.get<AdminModel[]>(this.BASEURL + 'admin');
+    const url = '/admin';
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
   }
 
-  public login(email: string, password: string): Observable<UserModel> {
-    const url = `${this.LOGIN_URL}${email}&${password}`;
-    return this.remoteDataService.getData(url).pipe(
+  public login(email: string, password: string): Observable<LoginResponse> {
+    const user: LoginRequest = { email, password };
+    const url = `/admin/login/`;
+    return from(this.remoteDataService.postRequest(url, user)).pipe(
       map((response: any) => {
         return response;
       })

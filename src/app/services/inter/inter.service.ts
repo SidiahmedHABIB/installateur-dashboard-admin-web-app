@@ -10,6 +10,14 @@ export class InterService {
 
   constructor(private remoteDataService: RemoteDataService) { }
 
+  public getPageIntersByStatus(status: String, page: number, size: number): Observable<PageInterModel> {
+    const url = '/inter/page/' + status + '&' + page + '&' + size;
+    return this.remoteDataService.getData(url).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   public getPageHaveIntersByUser(uId: number, page: number, size: number): Observable<PageInterModel> {
     const url = '/inter/pageInterByUser/' + uId + '&' + page + '&' + size;
     return this.remoteDataService.getData(url).pipe(
