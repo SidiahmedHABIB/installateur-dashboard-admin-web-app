@@ -66,9 +66,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "src/proxy.confi.json"
-          },
           "configurations": {
             "production": {
               "browserTarget": "Installateur_Admin:build:production"

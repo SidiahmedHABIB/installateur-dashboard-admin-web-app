@@ -25,7 +25,6 @@
         <!-- table header  -->
         <div class="head">
           <h4>Technician Interventions</h4>
-
         </div>
         <table>
           <thead>
@@ -37,7 +36,6 @@
               <th>Create At</th>
               <th>Description</th>
               <th>Plan</th>
-
             </tr>
           </thead>
           <tbody *ngIf="userInter ; else errors">
@@ -47,7 +45,7 @@
                   <img [src]="'http://localhost:8081/image/download/' + u.company.imageCompany.name">
                 </ng-container>
                 <ng-template #noImage>
-                  <img src="./assets/images/profile.png">
+                  <img src="./assets/images/company.png">
                 </ng-template>
               </td>
               <td>{{u.company.name}} </td>

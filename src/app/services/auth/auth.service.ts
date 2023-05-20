@@ -3,8 +3,8 @@ import { Observable, from, map, of } from 'rxjs';
 import { AdminModel } from 'src/app/models/admin.model';
 import { RemoteDataService } from '../data/remote-data.service';
 import { HttpClient } from '@angular/common/http';
-import { UserModel } from 'src/app/models/user.model';
-import { LoginRequest, LoginResponse } from 'src/app/models/login.model';
+import { LoginResponse } from 'src/app/models/login.model';
+import { Constants } from 'src/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,18 +27,19 @@ export class AuthService {
   }
 
   public login(email: string, password: string): Observable<LoginResponse> {
-    const user: LoginRequest = { email, password };
-    const url = `/admin/login/`;
-    return from(this.remoteDataService.postRequest(url, user)).pipe(
+    const url = `/auth/admin/`;
+    return from(this.remoteDataService.postLogin(url, email, password)).pipe(
       map((response: any) => {
         return response;
       })
     );
   }
 
-  public authenticateAdmin(appAdmin: AdminModel): Observable<boolean> {
-    this.authenticatedAdmin = appAdmin;
-    localStorage.setItem("authAdim", JSON.stringify({ username: appAdmin.firstName + " " + appAdmin.lastName, email: appAdmin.email, password: appAdmin.password }));
+  public authenticateAdmin(appAdmin: LoginResponse): Observable<boolean> {
+    this.authenticatedAdmin = appAdmin.data;
+    localStorage.setItem(Constants.authAdim, JSON.stringify({ username: appAdmin.data.firstName + " " + appAdmin.data.lastName, email: appAdmin.data.email, password: appAdmin.data.password }));
+    localStorage.setItem(Constants.accessToken, appAdmin.tokens.accessToken);
+    localStorage.setItem(Constants.refreshToken, appAdmin.tokens.refreshToken);
     return of(true);
   }
 
@@ -48,7 +49,7 @@ export class AuthService {
 
   public logout(): Observable<boolean> {
     this.authenticatedAdmin = undefined;
-    localStorage.removeItem("authAdim");
+    localStorage.removeItem(Constants.authAdim);
     return of(true);
   }
 }

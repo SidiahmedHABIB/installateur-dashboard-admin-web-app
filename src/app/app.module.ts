@@ -13,6 +13,7 @@ import { AdminComponent } from './layouts/admin/admin.component';
 import { UserDetailsComponent } from './layouts/user-details/user-details.component';
 import { CompanyDetailsComponent } from './layouts/company-details/company-details.component';
 import { InterventionComponent } from './layouts/intervention/intervention.component';
+import { InterventionDetailsComponent } from './layouts/intervention-details/intervention-details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { InterventionComponent } from './layouts/intervention/intervention.compo
     UserDetailsComponent,
     CompanyDetailsComponent,
     InterventionComponent,
+    InterventionDetailsComponent,
   ],
   imports: [
     BrowserModule,

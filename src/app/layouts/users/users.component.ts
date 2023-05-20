@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PageUsersModel, UserModel } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users/users.service';
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +23,10 @@ export class UsersComponent implements OnInit {
   addUserValue!: UserModel;
   editUserValue!: UserModel;
 
-  constructor(private fb: FormBuilder, private userService: UsersService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UsersService, private router: Router) {
+    emailjs.init('gpcPZMaqGVeU4I5Jb');
+
+  }
 
   ngOnInit(): void {
     this.handleGetPageAllUsers();
@@ -78,16 +82,42 @@ export class UsersComponent implements OnInit {
     this.addUserValue = this.addUser.value;
     console.log(this.addUserValue);
     this.userService.addUser(this.addUserValue).subscribe({
-      next: (data: UserModel) => {
-        alert("add successfully");
-        console.log(data);
-        this.handleGetPageAllUsers();
-        this.addUser.reset()
+      next: (data: boolean) => {
+        if (data === true) {
+          this.sendEmailToTechnician(this.addUserValue);
+        }
+        else {
+          alert("Error: email is already taken!");
+        }
+
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message)
       }
     });
+  }
+  sendEmailToTechnician(userModel: UserModel): any {
+    const emailParams = {
+      service_id: 'service_1jydbak',
+      template_id: 'template_knqjrsq',
+      user_id: 'gpcPZMaqGVeU4I5Jb',
+      template_params: {
+        // Template variables
+        send_to_name: userModel.firstName + " " + userModel.lastName,
+        send_to_email: userModel.email,
+        email: userModel.email,
+        password: userModel.password,
+      },
+    };
+    return emailjs.send('service_1jydbak', 'template_knqjrsq', emailParams.template_params)
+      .then((response) => {
+        alert("Technician added successfully");
+        this.addUser.reset();
+        this.handleGetPageAllUsers();
+        return response;
+      }, (error) => {
+        console.error('Error sending email:', error);
+      });
   }
 
   handleGetPageAllUsers() {

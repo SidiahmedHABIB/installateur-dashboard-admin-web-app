@@ -8,8 +8,13 @@ import { PageInterModel } from 'src/app/models/inter.model';
   providedIn: 'root'
 })
 export class UsersService {
+  private sendEmailUrl = 'https://api.emailjs.com/api/v1.0/email/send';
+  private serviceId = 'service_1jydbak';
+  private templateId = 'template_knqjrsq';
+  private userId = 'gpcPZMaqGVeU4I5Jb';
 
-  constructor(private remoteDataService: RemoteDataService) { }
+  constructor(private remoteDataService: RemoteDataService,) {
+  }
 
   public getPageUsers(page: number, size: number): Observable<PageUsersModel> {
     const url = '/users/all/' + page + '&' + size;
@@ -29,7 +34,7 @@ export class UsersService {
     );
   }
 
-  public addUser(userModel: UserModel): Observable<UserModel> {
+  public addUser(userModel: UserModel): Observable<boolean> {
     const url = '/users/add/';
     return this.remoteDataService.postData(url, userModel).pipe(
       map((response: any) => {
@@ -54,5 +59,9 @@ export class UsersService {
       })
     );
   }
+
+
+
+
 
 }

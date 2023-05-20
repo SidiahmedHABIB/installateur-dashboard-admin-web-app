@@ -35,7 +35,6 @@
               <th>Image</th>
               <th>User</th>
               <th>Email</th>
-              <th>Password</th>
               <th>Create At</th>
               <th>Delete</th>
               <th>Edit</th>
@@ -55,11 +54,7 @@
 
               <td>{{u.firstName}} {{u.lastName}}</td>
               <td>{{u.email}}</td>
-              <td>
-                <span>{{u.password}}</span>
-                <button style="border: none;"><span class="status completed"><i
-                      class="bi bi-eye-slash-fill"></i></span></button>
-              </td>
+
               <td>{{u.firstName}}</td>
               <td><button (click)="handleDeleteUser(u.id)" style="border: none;"><span class="status delete"> <i
                       class="bi bi-person-x"></i></span></button>

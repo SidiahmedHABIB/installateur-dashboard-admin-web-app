@@ -27,7 +27,7 @@ export class AdminService {
     );
   }
 
-  public addAdmin(adminModel: AdminModel): Observable<AdminModel> {
+  public addAdmin(adminModel: AdminModel): Observable<boolean> {
     const url = '/admin/add/';
     return this.remoteDataService.postData(url, adminModel).pipe(
       map((response: any) => {

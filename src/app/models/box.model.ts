@@ -1,4 +1,5 @@
 import { CompanyModel } from "./company.model";
+import { InterModel } from "./inter.model";
 import { ReportModel } from "./report.model";
 
 export interface BoxModel {
@@ -12,7 +13,7 @@ export interface BoxModel {
   isSend: boolean;
   creatAt: Date;
   upadateAt: Date;
-  componyBox: CompanyModel;
+  interventionBox: InterModel;
   reportBox: ReportModel;
 }
 export interface PageBoxModel {

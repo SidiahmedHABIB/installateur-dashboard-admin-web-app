@@ -35,19 +35,16 @@ export class LoginComponent implements OnInit {
     console.log(this.AdminFromGroup.value)
     this.authService.login(this.Admin.email, this.Admin.password).subscribe({
       next: (data: LoginResponse) => {
-        if (data.status == "false") {
-          return alert("User not found");
-        }
-        this.theAdmin = data.admin;
-        console.log(this.theAdmin)
-        this.authService.authenticateAdmin(this.theAdmin).subscribe({
+        this.theAdmin = data.data;
+        console.log(data)
+        this.authService.authenticateAdmin(data).subscribe({
           next: (data: boolean) => {
             this.router.navigateByUrl("/admin/dashboard");
           }
         });
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message)
+        return alert("User not found");
       }
     })
   }

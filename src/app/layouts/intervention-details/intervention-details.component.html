@@ -1,0 +1,191 @@
+<!-- CONTENT -->
+<section id="content">
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Intervention Details</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Interventions</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active" href="/admin/companies">List</a>
+          </li>
+          <li><i class='bx bx-chevron-right'></i></li>
+          <li>
+            <a class="active">Details</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- box Table -->
+    <div class="table-data">
+      <!-- error  -->
+      <ng-template #boxErrors>
+        <tbody>
+          <tr>
+            <td>
+              <div class="text-danger">do n't have Boxes</div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+      <!-- error  -->
+      <div class="list">
+        <!-- table header  -->
+        <div class="head">
+          <h4>All Intervention Boxes</h4>
+          <button style="border: none;" data-bs-toggle="modal" data-bs-target="#addBox"><span class="filter">Add
+              box</span></button>
+        </div>
+        <!-- table header  -->
+        <table>
+          <thead>
+            <tr>
+              <th>Images</th>
+              <th>Name</th>
+              <th>Entity</th>
+              <th>Matrical</th>
+              <th>Nserial</th>
+              <th>Status</th>
+              <th>Report</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+
+          <tbody *ngIf="boxes ; else boxErrors">
+            <tr *ngFor="let b of boxes ; let i=index">
+              <td>
+                <ng-container *ngIf="b.status==='INSTALLED'; else noImage">
+                  <button style="border: none;" (click)="handleGetBoxImages(b.id)" data-bs-toggle="modal"
+                    data-bs-target="#showImgs"><span class="status completed">Show</span></button>
+                </ng-container>
+                <ng-template #noImage>
+                  <button style="border: none;"><span class="status pending">Show</span></button>
+                </ng-template>
+              </td>
+              <td>{{b.name}} </td>
+              <td>{{b.entity}}</td>
+              <td>{{b.matricul}}</td>
+              <td>{{b.nserie}}</td>
+              <td>{{b.status}}</td>
+              <td>
+                <ng-container *ngIf="b.reportBox!==null; else noReport">
+                  <a href="http://localhost:8081/report/download/{{b.reportBox.name}}"><span
+                      class="status completed">Download PDF</span></a>
+                </ng-container>
+                <ng-template #noReport>
+                  <button style="border: none;"><span class="status pending">Download PDF</span></button>
+                </ng-template>
+              </td>
+              <td><button style="border: none;" (click)="handleDeleteBox(b.id)"><span class="status delete"> <i
+                      class="bi bi-trash-fill"></i></span></button>
+              </td>
+              <td><button style="border: none;" data-bs-toggle="modal" data-bs-target="#editBox"
+                  (click)="handlOpenEditBox(i)"><span class="status completed"> <i
+                      class="bi bi-pencil"></i></span></button></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- table footer  -->
+        <div class="footer">
+          <button style="border: none;" (click)="handlegoToNextPageBox(i)"
+            *ngFor="let item of [].constructor(this.totalPagesBox);let i = index" data-bs-toggle=""
+            data-bs-target="#"><span [ngClass]="i==currentPageBox?'page-active':'page'" class="">{{i+1}}</span></button>
+
+        </div>
+        <!-- table footer  -->
+      </div>
+
+    </div>
+    <!-- box Table -->
+
+
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+<!-- Add Dialog Box  -->
+<div class="modal fade" id="addBox" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Add Box</h2>
+      <form [formGroup]="addBox" (ngSubmit)="handleCreateBox()">
+        <label for="name">Name:</label>
+        <input type="text" formControlName="name">
+        <small *ngIf="addBox.controls['name'].errors &&addBox.controls['name'].touched " class="text-danger">
+          Name is required
+        </small>
+        <label for="entity">Entity:</label>
+        <input type="entity" formControlName="entity">
+        <small *ngIf="addBox.controls['entity'].errors &&addBox.controls['entity'].touched " class="text-danger">
+          Entity is required
+        </small>
+        <label for="nserie">Nserie:</label>
+        <input type="text" formControlName="nserie">
+        <small *ngIf="addBox.controls['nserie'].errors &&addBox.controls['nserie'].touched " class="text-danger">
+          Nserie is required
+        </small>
+        <button [disabled]="addBox.invalid" type="submit" class="submit">Add Box</button>
+      </form>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Add Dialog Box  -->
+<!-- Edit Dialog Box  -->
+<div class="modal fade" id="editBox" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Edit Box</h2>
+      <form [formGroup]="editBox" (ngSubmit)="handleEditBox()">
+        <label for="name">Name:</label>
+        <input type="text" formControlName="name">
+        <small *ngIf="editBox.controls['name'].errors &&editBox.controls['name'].touched " class="text-danger">
+          Name is required
+        </small>
+        <label for="entity">Entity:</label>
+        <input type="entity" formControlName="entity">
+        <small *ngIf="editBox.controls['entity'].errors &&editBox.controls['entity'].touched " class="text-danger">
+          Entity is required
+        </small>
+        <label for="nserie">Nserie:</label>
+        <input type="text" formControlName="nserie">
+        <small *ngIf="editBox.controls['nserie'].errors &&editBox.controls['nserie'].touched " class="text-danger">
+          Nserie is required
+        </small>
+        <button [disabled]="editBox.invalid" type="submit" class="submit">Edit Box</button>
+      </form>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Add Dialog Box  -->
+<!-- Show Dialog Box imgs -->
+<div class="modal fade" id="showImgs" aria-hidden="true" aria-labelledby="addToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <h2>Box Images</h2>
+      <div class="row d-flex justify-content-center mt-3">
+        <ng-container *ngIf="boxImages!==[]; else noImage">
+          <div class="col-auto"><img [src]="'http://localhost:8081/image/download/' + boxImages[0].name" height="150px">
+          </div>
+          <div class="col-auto ms-4"><img [src]="'http://localhost:8081/image/download/' + boxImages[1].name"
+              height="150px">
+          </div>
+
+        </ng-container>
+        <ng-template #noImage>
+          <img src="./assets/images/company.png" height="150px">
+        </ng-template>
+
+
+      </div>
+      <a class="close-button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Show Dialog Box imgs  -->

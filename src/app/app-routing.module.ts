@@ -6,9 +6,9 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { UsersComponent } from './layouts/users/users.component';
 import { AdminComponent } from './layouts/admin/admin.component';
 import { CompanyComponent } from './layouts/company/company.component';
-import { InterventionComponent } from './layouts/intervention/intervention.component';
 import { UserDetailsComponent } from './layouts/user-details/user-details.component';
 import { CompanyDetailsComponent } from './layouts/company-details/company-details.component';
+import { InterventionDetailsComponent } from './layouts/intervention-details/intervention-details.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: "admins", component: AdminComponent },
       { path: "companies", component: CompanyComponent },
       { path: "company-details/:id", component: CompanyDetailsComponent },
-      { path: "interventions", component: InterventionComponent },
+      { path: "inter-details/:id", component: InterventionDetailsComponent },
     ]
   }
 ];

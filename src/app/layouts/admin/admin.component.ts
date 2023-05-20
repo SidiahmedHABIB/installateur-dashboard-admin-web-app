@@ -76,11 +76,15 @@ export class AdminComponent implements OnInit {
     this.addAdminValue = this.addAdmin.value;
     console.log(this.addAdminValue);
     this.adminService.addAdmin(this.addAdminValue).subscribe({
-      next: (data: AdminModel) => {
-        alert("add successfully");
-        console.log(data);
-        this.handleGetPageAllAdmins();
-        this.addAdmin.reset()
+      next: (data: boolean) => {
+        if (data === true) {
+          alert("Admin add successfully ");
+          this.addAdmin.reset()
+          this.handleGetPageAllAdmins();
+        }
+        else {
+          alert("Error: email is already taken!");
+        }
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message)
